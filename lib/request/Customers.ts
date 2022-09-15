@@ -1,42 +1,49 @@
-import _ from 'lodash';
-import RequestBase from './Base';
+import _ from "lodash";
+import RequestBase from "./Base";
 import {
   CustomerResponse,
   PaymentResponse,
   ScheduledResultResponse,
-} from '../response';
-import { ScheduledStatusEnum } from '../enum';
+} from "../response";
+import { ScheduledStatusEnum } from "../enum";
 
 interface BillingKeysParams {
-  customer_uid: string[],
-};
+  customer_uid: string[];
+}
 interface PostBillingKeyData {
-  customer_uid: string,
-  pg?: string,
-  card_number: string,
-  expiry: string,
-  birth: string,
-  pwd_2digit?: string,
-  customer_name: string,
-  customer_tel: string,
-  customer_email: string,
-  customer_addr: string,
-  customer_postcode: string,
-};
+  customer_uid: string;
+  pg?: string;
+  card_number: string;
+  expiry: string;
+  birth: string;
+  pwd_2digit?: string;
+  customer_name: string;
+  customer_tel: string;
+  customer_email: string;
+  customer_addr: string;
+  customer_postcode: string;
+}
 interface CustomerUidParams {
-  customer_uid: string,
-};
+  customer_uid: string;
+}
+interface DeleteCustomerUidParams {
+  customer_uid: string;
+  reason?: string;
+  extra?: {
+    requester: "customer" | "admin";
+  };
+}
 interface GetPaymentsParams {
-  customer_uid: string,
-  page?: number,
-};
+  customer_uid: string;
+  page?: number;
+}
 interface GetScheduledsParams {
-  customer_uid: string,
-  page?: number,
-  from: number,
-  to: number,
-  'schedule-status': ScheduledStatusEnum,
-};
+  customer_uid: string;
+  page?: number;
+  from: number;
+  to: number;
+  "schedule-status": ScheduledStatusEnum;
+}
 
 /* 정기결제용 구매자 빌링키 */
 class Customers extends RequestBase {
@@ -49,9 +56,9 @@ class Customers extends RequestBase {
   /* 빌링키 내역 조회 */
   public static getBillingKeys(params: BillingKeysParams): Customers {
     const customers = new Customers();
-    customers.url = '/subscribe/customers';
+    customers.url = "/subscribe/customers";
     customers.params = params;
-    customers.responseType = 'list';
+    customers.responseType = "list";
     return customers;
   }
 
@@ -60,8 +67,8 @@ class Customers extends RequestBase {
     const { customer_uid } = data;
     const customers = new Customers();
     customers.url = `/subscribe/customers/${customer_uid}`;
-    customers.method = 'POST';
-    customers.data = _.omit(data, 'customer_uid');
+    customers.method = "POST";
+    customers.data = _.omit(data, "customer_uid");
     return customers;
   }
 
@@ -73,10 +80,11 @@ class Customers extends RequestBase {
   }
 
   /* 빌링키 삭제 */
-  public static deleteBillingKey({ customer_uid }: CustomerUidParams): Customers {
+  public static deleteBillingKey(data: DeleteCustomerUidParams): Customers {
     const customers = new Customers();
-    customers.url = `/subscribe/customers/${customer_uid}`;
-    customers.method = 'DELETE';
+    customers.url = `/subscribe/customers/${data.customer_uid}`;
+    customers.method = "DELETE";
+    customers.data = _.omit(data, "customer_uid");
     return customers;
   }
 
@@ -86,7 +94,7 @@ class Customers extends RequestBase {
     const customers = new Customers();
     customers.url = `/subscribe/customers/${customer_uid}/payments`;
     customers.params = { page };
-    customers.responseType = 'collection';
+    customers.responseType = "collection";
     customers.responseClass = new PaymentResponse();
     return customers;
   }
@@ -96,8 +104,8 @@ class Customers extends RequestBase {
     const { customer_uid } = params;
     const customers = new Customers();
     customers.url = `/subscribe/customers/${customer_uid}/schedules`;
-    customers.params = _.omit(params, 'customer_uid');
-    customers.responseType = 'collection';
+    customers.params = _.omit(params, "customer_uid");
+    customers.responseType = "collection";
     customers.responseClass = new ScheduledResultResponse();
     return customers;
   }
