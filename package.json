@@ -1,6 +1,6 @@
 {
-  "name": "iamport-rest-client-nodejs",
-  "version": "0.9.11",
+  "name": "@dlpstudio/iamport-rest-client-nodejs",
+  "version": "0.1.1",
   "description": "NodeJS용 아임포트 REST API Client 입니다.",
   "main": "dist/Iamport.js",
   "types": "dist/Iamport.d.ts",
@@ -13,9 +13,9 @@
     "prepublish": "rm -rf dist && tsc"
   },
   "author": {
-    "name": "Solee Deedee Choi",
-    "email": "mymusese@gmail.com",
-    "url": "https://github.com/SoleeChoi"
+    "name": "dlpstudio",
+    "email": "devadmin@dlp.studio",
+    "url": "https://github.com/dlpstudio"
   },
   "license": "MIT",
   "keywords": [
@@ -25,10 +25,10 @@
     "rest-client",
     "iamport-rest-client"
   ],
-  "homepage": "https://github.com/iamport/rest-client-nodejs",
+  "homepage": "https://github.com/dlpstudio/rest-client-nodejs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iamport/rest-client-nodejs"
+    "url": "https://github.com/dlpstudio/rest-client-nodejs"
   },
   "dependencies": {
     "@types/node": "^12.7.5",
