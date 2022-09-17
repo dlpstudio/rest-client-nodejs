@@ -84,7 +84,7 @@ class Customers extends RequestBase {
     const customers = new Customers();
     customers.url = `/subscribe/customers/${data.customer_uid}`;
     customers.method = "DELETE";
-    customers.data = _.omit(data, "customer_uid");
+    customers.params = _.omit(data, "customer_uid");
     return customers;
   }
 
